@@ -1,25 +1,43 @@
-# CakePHP 3
+# Laravel & PHP
+laravel/.env
+laravel/.env.backup
+laravel/.phpunit.result.cache
+laravel/node_modules
+laravel/public/hot
+laravel/public/storage
+laravel/storage/*.key
+laravel/vendor
+laravel/Homestead.json
+laravel/Homestead.yaml
+laravel/npm-debug.log*
+laravel/yarn-error.log*
 
-/vendor/*
-/config/app.php
+# IDE Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
-/tmp/cache/models/*
-!/tmp/cache/models/empty
-/tmp/cache/persistent/*
-!/tmp/cache/persistent/empty
-/tmp/cache/views/*
-!/tmp/cache/views/empty
-/tmp/sessions/*
-!/tmp/sessions/empty
-/tmp/tests/*
-!/tmp/tests/empty
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
 
-/logs/*
-!/logs/empty
+# Temporary files
+/tmp/*
+*.tmp
+*.temp
 
-# CakePHP 2
+# Logs
+*.log
+logs/
 
-/app/tmp/*
-/app/Config/core.php
-/app/Config/database.php
-/vendors/*
+# Build artifacts
+/dist/
+/build/
