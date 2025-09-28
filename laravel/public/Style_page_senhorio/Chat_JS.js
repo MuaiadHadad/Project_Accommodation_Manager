@@ -2,20 +2,20 @@ let title = document.querySelectorAll(".chat-list-header");
 let totalHeight = 0;
 
 for(let i = 0; i < title.length; i++){
-    let totalHeight = 0;
     title[i].addEventListener("click", function(){
         let result = this.nextElementSibling;
         let activeSibling = this.nextElementSibling.classList.contains('active');
         this.classList.toggle('active');
         result.classList.toggle("active");
+        let currentHeight = 0; // Fixed variable name to avoid shadowing
         if(!activeSibling) {
-            for( i= 0; i < result.children.length; i++) {
-                totalHeight = totalHeight +  result.children[i].scrollHeight + 40;
+            for(let j = 0; j < result.children.length; j++) { // Fixed variable name to avoid shadowing
+                currentHeight = currentHeight + result.children[j].scrollHeight + 40;
             }
         } else {
-            totalHeight = 0;
+            currentHeight = 0;
         }
-        result.style.maxHeight =  totalHeight + "px";
+        result.style.maxHeight = currentHeight + "px";
     });
 }
 
