@@ -1,0 +1,14 @@
+.git
+.gitignore
+.idea
+Diagramas
+Relatório
+Requisitos
+Sprint
+protótipos
+laravel/node_modules
+laravel/vendor
+laravel/storage/logs
+laravel/storage/framework/cache
+laravel/storage/framework/sessions
+laravel/storage/framework/views
