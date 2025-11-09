@@ -1,96 +1,127 @@
 # Project Accommodation Manager
 
-Plataforma web construída em Laravel para agilizar a gestão de alojamentos universitários. O sistema
-conecta **alunos**, **senhorios** e **gestores** permitindo divulgar imóveis, aprovar anúncios,
-organizar favoritos e comunicar através de um chat integrado.
+Aplicação web desenvolvida em **Laravel** para apoiar a gestão de alojamentos universitários. O
+sistema conecta alunos, senhorios e gestores, cobrindo o ciclo completo de divulgação,
+validação e reserva de quartos.
 
-## Funcionalidades principais
-- **Homepage pública:** listagem de quartos e casas com filtros de pesquisa.
-- **Área do aluno:** gestão de perfil, favoritos e conversas com os proprietários.
-- **Área do senhorio:** criação, edição e remoção de anúncios de quartos/casas, além de acesso ao chat.
-- **Área do gestor:** validação e moderação de anúncios e contas de utilizadores.
-- **Sistema de mensagens:** troca de mensagens em tempo real entre alunos e senhorios.
-- **Recuperação e validação de contas:** fluxo completo para registo, login, validação por código e
-  recuperação de palavra-passe.
+## Principais funcionalidades
+- **Catálogo público de imóveis** com filtros e detalhes de cada quarto/casa.
+- **Área do estudante** para gerir perfil, favoritos e conversas com proprietários.
+- **Área do senhorio** para criar, editar e despublicar anúncios.
+- **Área do gestor** responsável por moderar utilizadores e validar publicações.
+- **Mensagens em tempo real** entre estudantes e senhorios.
+- **Fluxo de autenticação completo**, incluindo registo, validação por código e recuperação de
+  credenciais.
+
+## Tecnologias
+- [Laravel](https://laravel.com/) 10 com PHP 8.2
+- MySQL ou MariaDB para persistência
+- [Vite](https://vitejs.dev/) para gestão e build dos assets front-end
+- [Bootstrap](https://getbootstrap.com/) e componentes Blade para UI
 
 ## Estrutura do repositório
-```
+```text
 Project_Accommodation_Manager/
-├── Diagramas/                # Diagramas de arquitetura e de domínio
-├── Relatório/                # Documentação técnica e relatórios entregues
-├── Requisitos/               # Levantamento de requisitos e especificações
-├── Sprint/                   # Artefactos produzidos em cada sprint
-├── protótipos/               # Protótipos de UX/UI
-└── laravel/                  # Código-fonte da aplicação Laravel
+├── Diagramas/             # Diagramas UML e de arquitetura
+├── Requisitos/            # Especificação funcional do produto
+├── Relatório/             # Relatórios e documentação de entregas
+├── Sprint/                # Artefactos planeados em cada sprint
+├── protótipos/            # Protótipos de UX/UI
+└── laravel/               # Código-fonte da aplicação Laravel
     ├── app/
-    │   ├── Console/
-    │   ├── Http/             # Controladores para alunos, senhorios, gestores e chat
-    │   ├── Models/
-    │   ├── Product.php
+    │   ├── Console/       # Comandos Artisan personalizados
+    │   ├── Events/        # Eventos de domínio da aplicação
+    │   ├── Http/          # Controladores, middleware e requests
+    │   ├── Listeners/     # Listeners ligados aos eventos
+    │   ├── Mail/          # Classes de e-mail (por ex. validação de conta)
+    │   ├── Models/        # Modelos Eloquent
+    │   ├── Product.php    # Modelo específico para imóveis
     │   └── ProductsPhoto.php
     ├── bootstrap/
     ├── config/
-    ├── database/
-    ├── public/
+    ├── database/          # Migrations, seeders e factories
+    ├── public/            # Ponto de entrada HTTP e assets compilados
     ├── resources/
     │   ├── css/
     │   ├── js/
     │   └── views/
     ├── routes/
-    │   ├── api.php
-    │   └── web.php
+    │   ├── api.php        # Endpoints expostos para consumo externo
+    │   └── web.php        # Rotas para navegação web
     ├── storage/
     ├── tests/
     ├── composer.json
     ├── package.json
-    ├── phpunit.xml
     └── vite.config.js
 ```
 
 ## Configuração local (sem Docker)
-1. Aceda à pasta `laravel`.
-2. Copie o ficheiro de ambiente: `cp .env.example .env`.
-3. Instale as dependências PHP e JavaScript:
+1. **Pré-requisitos**
+   - PHP >= 8.2 com extensões `pdo_mysql`, `mbstring`, `openssl`, `xml`, `zip`.
+   - Composer 2 e Node.js >= 18.
+   - Instância MySQL/MariaDB acessível.
+2. **Clonar o repositório e aceder à pasta Laravel**
+   ```bash
+   git clone https://github.com/<organização>/Project_Accommodation_Manager.git
+   cd Project_Accommodation_Manager/laravel
+   ```
+3. **Configurar variáveis de ambiente**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+   Actualize as variáveis `DB_*`, `MAIL_*` e outras credenciais.
+4. **Instalar dependências**
    ```bash
    composer install
    npm install
    ```
-4. Gere a chave da aplicação e execute as migrações:
+5. **Executar migrações e seeders**
    ```bash
-   php artisan key:generate
    php artisan migrate --seed
+   php artisan storage:link
    ```
-5. Inicie os servidores de desenvolvimento:
+6. **Iniciar servidores de desenvolvimento**
    ```bash
    php artisan serve
    npm run dev
    ```
-6. A aplicação ficará disponível em `http://127.0.0.1:8000`.
+   A aplicação estará disponível em `http://127.0.0.1:8000`.
 
 ## Execução com Docker
-Este repositório inclui um `Dockerfile` otimizado em múltiplas fases para construir o backend PHP
-(Laravel) e os activos gerados pelo Vite.
+O repositório inclui um `Dockerfile` multi-stage que instala dependências PHP, compila os assets com
+Vite e publica a aplicação num container Apache + PHP 8.2.
 
-1. Crie e configure o ficheiro `.env` em `laravel/.env` antes da build.
-2. A partir da raiz do projeto, execute:
+1. Crie o ficheiro de configuração antes da build:
+   ```bash
+   cp laravel/.env.example laravel/.env
+   ```
+2. Actualize as variáveis `APP_KEY`, `DB_*` e `MAIL_*` no `laravel/.env`.
+3. Construa a imagem e inicie o container (publica na porta 8080):
    ```bash
    docker build -t accommodation-manager .
-   docker run --rm -it -p 8000:8000 --env-file laravel/.env accommodation-manager
+   docker run --rm -it \
+     -p 8080:80 \
+     --env-file laravel/.env \
+     -v $(pwd)/laravel/storage:/var/www/html/storage \
+     accommodation-manager
    ```
-3. Se precisar de persistir a pasta `storage` ou `database`, mapeie volumes na instrução `docker run`.
-4. Após o arranque, a aplicação estará acessível em `http://localhost:8000`.
+4. Após o arranque, execute migrações dentro do container sempre que necessário:
+   ```bash
+   docker exec -it <container_id> php artisan migrate --seed --force
+   ```
+5. A aplicação ficará disponível em `http://localhost:8080`.
 
-## Scripts úteis
-Dentro da pasta `laravel`:
+## Scripts úteis (pasta `laravel/`)
 - `npm run dev` – inicia o Vite em modo desenvolvimento.
-- `npm run build` – compila os activos front-end para produção.
-- `php artisan test` – executa a suite de testes.
-- `php artisan migrate --seed` – executa migrações e popula dados iniciais.
+- `npm run build` – compila os assets front-end para produção.
+- `php artisan test` – executa a suite de testes automatizados.
+- `php artisan migrate --seed` – aplica migrações e dados iniciais.
 
 ## Próximos passos sugeridos
-- Adicionar pipelines CI/CD para lint, testes e build.
-- Completar documentação das APIs e definir contratos de dados.
-- Criar ficheiro `docker-compose.yml` para orquestrar serviços (ex.: base de dados MySQL).
+- Adicionar `docker-compose.yml` para orquestrar base de dados e aplicação.
+- Configurar pipeline CI/CD para lint, testes e build.
+- Especificar contratos de API (ex.: OpenAPI/Swagger) para integração com parceiros.
 
 ---
 Projeto desenvolvido para apoiar a gestão integrada de alojamentos estudantis.
