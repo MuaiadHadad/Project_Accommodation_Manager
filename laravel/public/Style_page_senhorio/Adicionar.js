@@ -13,7 +13,7 @@ document.getElementById('N_quartos').addEventListener('change', function() {
     var selecionado = this.value;
     var container = document.getElementById("quartos");
 
-    for(i=1;i <= selecionado;i++) {
+    for(var i=1;i <= selecionado;i++) {
         var novoHTML = ` <div class="submit_1 clearfix">
             <h4 class="mgt col_1">Dados do quarto #` + i + ` </h4>
             <hr>
@@ -78,7 +78,7 @@ function handleFiles(files) {
 
     // Para cada arquivo, cria um elemento de imagem e exibe-o
     for (var i = 0; i < files.length; i++) {
-        var imgContainer = document.createElement('div');
+        // imgContainer is created but not used, let's properly structure the image handling
         var img = document.createElement('img');
         img.src = URL.createObjectURL(files[i]);
         img.width = 150; // Defina a largura da imagem conforme necessário
@@ -152,23 +152,30 @@ function handleFilesPorQuarto(files) {
     // Para cada arquivo, cria um elemento de imagem e exibe-o
     for (var i = 0; i < files.length; i++) {
         var imgContainer = document.createElement('div');
+        imgContainer.style.position = 'relative';
+        imgContainer.style.display = 'inline-block';
+        
         var img = document.createElement('img');
         img.src = URL.createObjectURL(files[i]);
         img.width = 150; // Defina a largura da imagem conforme necessário
         img.height = 150; // Defina a altura da imagem conforme necessário
         img.title=files[i].name;
         img.className="img_upload";
-        fileListPorQuarto.appendChild(img);
-
+        
         var removeIcon = document.createElement('i');
         removeIcon.className = 'fa fa-close fa-x2';
-        removeIcon.style='padding-top: -50px; padding-bottom: 0px; position: absolute;';
-        removeIcon.addEventListener('click', function() {
-            fileListPorQuarto.removeChild(img);
-            fileListPorQuarto.removeChild(removeIcon);
-        });
-        fileListPorQuarto.appendChild(removeIcon);
-
+        removeIcon.style = 'position: absolute; top: 5px; right: 5px; cursor: pointer; background: rgba(255,255,255,0.7); padding: 2px; border-radius: 3px;';
+        
+        // Create closure to capture current img and imgContainer references
+        (function(currentImg, currentContainer) {
+            removeIcon.addEventListener('click', function() {
+                fileListPorQuarto.removeChild(currentContainer);
+            });
+        })(img, imgContainer);
+        
+        imgContainer.appendChild(img);
+        imgContainer.appendChild(removeIcon);
+        fileListPorQuarto.appendChild(imgContainer);
     }
 }
 

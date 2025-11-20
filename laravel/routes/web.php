@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AlunoContoller;
+use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\ControllerChat;
 use App\Http\Controllers\ControllerChatSenhorio;
 use App\Http\Controllers\GestorControllers;
@@ -30,13 +30,13 @@ Route::get('/Senhorio/ChatSenhorio', [ControllerChatSenhorio::class, 'GetPageCha
 Route::get('/Senhorio/{id}/GetChatSenhorio', [ControllerChatSenhorio::class, 'GetChat']);
 Route::post('/chat/{id}/messageSenhorio', [ControllerChatSenhorio::class, 'sendMessage']);
 
-Route::get('/Aluno/ChatAluno', [AlunoContoller::class, 'GetPageChat'])->name('/Aluno/ChatAluno');
-Route::get('/Aluno', [AlunoContoller::class, 'GetPageAluno']);
-Route::get('/Aluno/Profile', [AlunoContoller::class, 'GetPageProfAluno']);
-Route::get('/Aluno/{id}/addfevorQuarto', [AlunoContoller::class, 'AddfevorQuarto']);
-Route::get('/Aluno/{id}/RemovefevorQuarto', [AlunoContoller::class, 'RemoverQuarto']);
-Route::get('/Aluno/{id}/addfevorCasa', [AlunoContoller::class, 'AddfevorCasa']);
-Route::get('/Aluno/{id}/RemovefevorCasa', [AlunoContoller::class, 'RemoverCasa']);
+Route::get('/Aluno/ChatAluno', [AlunoController::class, 'GetPageChat'])->name('/Aluno/ChatAluno');
+Route::get('/Aluno', [AlunoController::class, 'GetPageAluno']);
+Route::get('/Aluno/Profile', [AlunoController::class, 'GetPageProfAluno']);
+Route::get('/Aluno/{id}/addfevorQuarto', [AlunoController::class, 'AddfevorQuarto']);
+Route::get('/Aluno/{id}/RemovefevorQuarto', [AlunoController::class, 'RemoverQuarto']);
+Route::get('/Aluno/{id}/addfevorCasa', [AlunoController::class, 'AddfevorCasa']);
+Route::get('/Aluno/{id}/RemovefevorCasa', [AlunoController::class, 'RemoverCasa']);
 
 Route::get('/', [PaginaInicialControllers::class, 'GetPageInicial']);
 Route::get('/inicio', [PaginaInicialControllers::class, 'GetPageInicial']);

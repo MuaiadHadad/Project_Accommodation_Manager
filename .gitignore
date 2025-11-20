@@ -1,25 +1,60 @@
-# CakePHP 3
+# Laravel/PHP files
+/laravel/vendor/
+/laravel/node_modules/
+/laravel/public/hot
+/laravel/public/build
+/laravel/public/storage
+/laravel/storage/*.key
+/laravel/.env
+/laravel/.env.backup
+/laravel/.env.production
+/laravel/.phpunit.result.cache
+/laravel/Homestead.json
+/laravel/Homestead.yaml
+/laravel/auth.json
+/laravel/npm-debug.log
+/laravel/yarn-error.log
+/laravel/.phpunit.cache
 
-/vendor/*
-/config/app.php
+# IDE files
+.idea/
+.vscode/
+.fleet/
+*.swp
+*.swo
+*~
 
-/tmp/cache/models/*
-!/tmp/cache/models/empty
-/tmp/cache/persistent/*
-!/tmp/cache/persistent/empty
-/tmp/cache/views/*
-!/tmp/cache/views/empty
-/tmp/sessions/*
-!/tmp/sessions/empty
-/tmp/tests/*
-!/tmp/tests/empty
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
 
-/logs/*
-!/logs/empty
+# Logs
+*.log
+/laravel/storage/logs/*.log
 
-# CakePHP 2
+# Temporary files
+/tmp/
+*.tmp
+*.temp
 
-/app/tmp/*
-/app/Config/core.php
-/app/Config/database.php
-/vendors/*
+# Backup files
+*.bak
+*.backup
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Cache files
+/laravel/bootstrap/cache/*.php
+/laravel/storage/framework/cache/data/*
+/laravel/storage/framework/sessions/*
+/laravel/storage/framework/testing/*
+/laravel/storage/framework/views/*

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-class AlunoContoller extends Controller{
+class AlunoController extends Controller{
     public function GetPageAluno(){
         if (session('tipo_usuario') == "aluno") {
             $token=session('ActivationToken');
